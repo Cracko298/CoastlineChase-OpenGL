@@ -1,0 +1,16 @@
+# Windows 10/11 x64. Use llvm-mingw or an MSYS2 UCRT64 MinGW-w64 environment.
+WINCC ?= x86_64-w64-mingw32-gcc
+WINDRES ?= x86_64-w64-mingw32-windres
+CORE = source/catalog.c source/world.c source/game.c source/ambience.c source/drive.c source/police.c source/menus.c source/save.c source/render.c source/ui.c source/audio_synth.c
+DESKTOP = desktop/main_win.c desktop/audio_win.c desktop/controls.c desktop/ui_text.c desktop/gl_draw.c desktop/presentation.c
+CFLAGS = -std=c11 -O2 -Wall -Wextra -Werror -DCOAST_DESKTOP -DUNICODE -D_UNICODE -Iinclude
+LIBS = -lopengl32 -lgdi32 -luser32 -lshell32 -lwinmm -lole32 -lm
+.PHONY: all clean
+all: build-windows/CoastlineChase.exe
+build-windows/icon.res: desktop/app.rc desktop/app.manifest desktop/icon.ico
+	@mkdir -p build-windows
+	$(WINDRES) -I desktop -O coff desktop/app.rc $@
+build-windows/CoastlineChase.exe: $(CORE) $(DESKTOP) include/game.h include/render.h include/desktop.h include/audio.h source/scenery.inc source/unusual.inc source/atmosphere.inc build-windows/icon.res
+	$(WINCC) $(CFLAGS) $(CORE) $(DESKTOP) build-windows/icon.res -o $@ -municode -mwindows -static $(LIBS)
+clean:
+	rm -rf build-windows

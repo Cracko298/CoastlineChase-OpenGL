@@ -1,0 +1,2 @@
+cc -Iinclude -std=c11 -O2 -g -Wall -Wextra -Wpedantic -Werror source/catalog.c source/world.c source/game.c source/ambience.c source/drive.c source/police.c source/menus.c source/save.c source/render.c source/ui.c tests/software_renderer.c tools/city_atlas.c -o build-host/coast-atlas -lm
+./build-host/coast-atlas

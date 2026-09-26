@@ -1,0 +1,43 @@
+CC ?= cc
+CPPFLAGS += -Iinclude
+CFLAGS ?= -std=c11 -O2 -g -Wall -Wextra -Wpedantic -Werror
+CORE = source/catalog.c source/world.c source/game.c source/ambience.c source/drive.c source/police.c source/menus.c source/save.c source/render.c source/ui.c
+HOST = tests/test_game.c tests/software_renderer.c
+.PHONY: test preview sanitize clean
+build-host/coast-test: $(CORE) $(HOST) include/game.h include/render.h source/scenery.inc source/atmosphere.inc source/unusual.inc
+	@mkdir -p build-host
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(CORE) $(HOST) -o $@ -lm
+test: build-host/coast-test
+	./build-host/coast-test
+preview: build-host/coast-test
+	@mkdir -p preview
+	./build-host/coast-test --preview preview/coast
+sanitize:
+	@mkdir -p build-host
+	$(CC) $(CPPFLAGS) -std=c11 -O1 -g -Wall -Wextra -Werror -fsanitize=address,undefined -fno-omit-frame-pointer $(CORE) $(HOST) -o build-host/coast-sanitize -lm
+	ASAN_OPTIONS=detect_leaks=0 ./build-host/coast-sanitize
+clean:
+	rm -rf build-host
+
+.PHONY: benchmark atlas
+benchmark:
+	@mkdir -p build-host
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(CORE) tools/benchmark.c -o build-host/coast-benchmark -lm
+	./build-host/coast-benchmark
+atlas:
+	@mkdir -p build-host preview
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(CORE) tests/software_renderer.c tools/city_atlas.c -o build-host/coast-atlas -lm
+	./build-host/coast-atlas
+
+.PHONY: desktop-test
+desktop-test:
+	@mkdir -p build-host
+	$(CC) $(CPPFLAGS) $(CFLAGS) -DCOAST_DESKTOP $(CORE) source/audio_synth.c desktop/controls.c desktop/ui_text.c tests/test_desktop.c -o build-host/desktop-test -lm
+	./build-host/desktop-test
+
+# Optional: OSMesa development headers/library for headless desktop renderer QA.
+OSMESA_FLAGS ?= -lOSMesa
+desktop-preview:
+	@mkdir -p build-host preview
+	$(CC) $(CPPFLAGS) $(CFLAGS) -DCOAST_DESKTOP $(CORE) desktop/controls.c desktop/ui_text.c desktop/presentation.c desktop/gl_draw.c tests/desktop_gl_preview.c -o build-host/desktop-gl-preview $(OSMESA_FLAGS) -lm
+	./build-host/desktop-gl-preview

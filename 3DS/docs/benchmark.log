@@ -1,0 +1,3 @@
+cc -Iinclude -std=c11 -O2 -g -Wall -Wextra -Wpedantic -Werror source/catalog.c source/world.c source/game.c source/ambience.c source/drive.c source/police.c source/menus.c source/save.c source/render.c source/ui.c tools/benchmark.c -o build-host/coast-benchmark -lm
+./build-host/coast-benchmark
+simulation_ms_per_tick 0.0135 render_ms_per_frame 0.1570 generated_chunks 1024
