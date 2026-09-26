@@ -1,0 +1,18 @@
+cc -Iinclude -std=c11 -O1 -g -Wall -Wextra -Werror -fsanitize=address,undefined -fno-omit-frame-pointer source/catalog.c source/world.c source/game.c source/ambience.c source/drive.c source/police.c source/menus.c source/save.c source/render.c source/ui.c tests/test_game.c tests/software_renderer.c -o build-host/coast-sanitize -lm
+ASAN_OPTIONS=detect_leaks=0 ./build-host/coast-sanitize
+Coast samples: rounded=1 extensions=1740 dense=91
+PASS: 40 deterministic connected island maps, bridges, reciprocal road links, all districts; buildings 4-91 m, four doors/roofs
+PASS: v0.1/v0.2/v0.3 migration, 32 ownership bits/loadouts, v4 round trip, corrupt primary recovery, validation
+PASS: preview without spending, purchase/cancel, per-car loadouts, upgrade caps, 17 settings
+PASS: starter 68 km/h / boost 83 km/h caps, braking, drivetrain bounds, drift, pause, payout
+Persistent unit route distance: 18 -> 13 tiles
+PASS: 150-second late-wave stress / peak 24 ground cops / type mask 1E / 3 helicopters
+PASS: sustained arrest / no escape timer or distance despawn
+PASS: faster-player contact damage rule, civilian equal/slower immunity, giant collision scale, all four supplies, paused timers
+PASS: player-only damage dispatch, all CPU types, cooldown, capped escalation, arrest range/speed/LOS, scenery immunity, real-slip drift payout, organic shore and dense lots
+PASS: police speed-proportional damage, 7-hull cap, armor, shared cooldown, power protection and attribution
+PASS: 90-second identical simulation across graphics presets and legacy traffic/steering values
+Pedestrian traversals: 5; supply type mask: F
+PASS: roaming pedestrian block transitions, all four safe supply types, immutable city cache
+PASS: radar/map navigation, connected GPS route, return to run
+ALL V0.5 TESTS PASSED

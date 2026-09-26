@@ -1,0 +1,4 @@
+cc -Iinclude -I/tmp/coast-debs/root/usr/include -std=c11 -O2 -g -Wall -Wextra -Wpedantic -Werror -DCOAST_DESKTOP source/catalog.c source/world.c source/game.c source/ambience.c source/drive.c source/police.c source/menus.c source/save.c source/render.c source/ui.c desktop/controls.c desktop/ui_text.c desktop/presentation.c desktop/gl_draw.c tests/desktop_gl_preview.c -o build-host/desktop-gl-preview -L/tmp/coast-debs/root/usr/lib/x86_64-linux-gnu -lOSMesa -lm
+./build-host/desktop-gl-preview
+Desktop GL: llvmpipe (LLVM 17.0.6, 256 bits) / 4.5 (Compatibility Profile) Mesa 24.0.5-1ubuntu1
+PASS: shared Windows OpenGL path, reverse depth, six desktop layouts and no GL errors/buffer drops

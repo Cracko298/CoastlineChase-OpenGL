@@ -1,0 +1,14 @@
+; Clip coordinates and RGBA are prepared by the CPU.
+; Rotate landscape clip coordinates for the 240 x 400 PICA framebuffer.
+.out outpos position
+.out outcolor color
+.alias inpos v0
+.alias incolor v1
+.proc main
+    mov outpos.x, inpos.y
+    mov outpos.y, -inpos.x
+    mov outpos.z, inpos.z
+    mov outpos.w, inpos.w
+    mov outcolor, incolor
+    end
+.end

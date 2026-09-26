@@ -1,0 +1,14 @@
+cc -Iinclude -std=c11 -O2 -g -Wall -Wextra -Wpedantic -Werror source/catalog.c source/world.c source/game.c source/ambience.c source/drive.c source/police.c source/menus.c source/save.c source/render.c source/ui.c tests/test_game.c tests/software_renderer.c -o build-host/coast-test -lm
+./build-host/coast-test --preview preview/coast
+SCENE 0: 16593 vertices / 0 dropped
+SCENE 1: 16314 vertices / 0 dropped
+SCENE 2: 17649 vertices / 0 dropped
+SCENE 3: 18945 vertices / 0 dropped
+SCENE 4: 9141 vertices / 0 dropped
+SCENE 5: 16455 vertices / 0 dropped
+SCENE 6: 11376 vertices / 0 dropped
+SCENE 7: 7251 vertices / 0 dropped
+SCENE 8: 8661 vertices / 0 dropped
+SCENE 9: 18954 vertices / 0 dropped
+SCENE 10: 17121 vertices / 0 dropped
+MAX DETAIL: 0 dropped vertices (safe bounded degradation)
