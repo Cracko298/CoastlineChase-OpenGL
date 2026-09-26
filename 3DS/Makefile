@@ -33,7 +33,7 @@ include $(DEVKITARM)/3ds_rules
 #---------------------------------------------------------------------------------
 APP_TITLE := Coastline Chase
 APP_DESCRIPTION := Neon coastal driving and police pursuits
-APP_AUTHOR := Coastline Chase
+APP_AUTHOR := Cracko298
 TARGET		:=	CoastlineChase
 BUILD		:=	build
 SOURCES		:=	source
