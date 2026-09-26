@@ -1,2 +1,3 @@
 # CoastlineChase-OpenGL
-CoastlineChase OpenGL is an outdated version of my Game. It's open-sourced because of how early in development this was.
+- Coastline Chase is my Game I've been developing since so much has changed I decided to Open-Source the Alpha version for free under the MIT License.
+- Both versions are v0.5.0 and work nearly identically.
